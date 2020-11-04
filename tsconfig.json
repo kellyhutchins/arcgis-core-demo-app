@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "es5",
+    "jsx": "react",
+    "jsxFactory":"tsx",
+    "sourceMap":true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "importHelpers":true,
+    "resolveJsonModule":true,
+    "allowSyntheticDefaultImports":true,
+    "downlevelIteration": true,
+    "preserveConstEnums": true
+  },
+  "include": [
+    "src/**/*.tsx",
+    "src/**/*.ts"
+  ]
+}

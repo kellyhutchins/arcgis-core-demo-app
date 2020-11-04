@@ -1,0 +1,26 @@
+{
+  "environment": {
+    "isEsri": false,
+    "webTierSecurity": false
+  },
+  "localStorage": {
+    "fetch": true
+  },
+  "portal": {
+    "fetch": true
+  },
+  "urlParams": [
+    "appid",
+    "basemapUrl",
+    "basemapReferenceUrl",
+    "center",
+    "level",
+    "marker",
+    "oauthappid",
+    "portalUrl",
+    "locale"
+  ],
+  "webMap": {
+    "default": "3c3daa5b94c24eccb38384a7fee723c9"
+  }
+}
