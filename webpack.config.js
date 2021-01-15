@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
-
+const ArcGISPlugin = require('@arcgis/webpack-plugin');
 
 module.exports = {
     entry: {
@@ -22,6 +22,11 @@ module.exports = {
         open: 'Google Chrome'
     },
     plugins: [
+        new ArcGISPlugin({
+            features: {
+                "3d": true
+            }
+        }),
         new CopyPlugin({
             patterns: [
                 {
@@ -29,6 +34,9 @@ module.exports = {
                     to: "assets"
                 }, {
                     from: "./src/assets",
+                    to: "assets"
+                }, {
+                    from: "./src/HelloWorld/assets",
                     to: "assets"
                 }
             ]

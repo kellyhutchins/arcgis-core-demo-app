@@ -1,9 +1,9 @@
 import ApplicationBase from "./ApplicationBase/ApplicationBase";
 import Expand from "@arcgis/core/widgets/Expand";
 import Legend from "@arcgis/core/widgets/Legend";
-import { registerMessageBundleLoader, createT9NLoader, fetchMessageBundle, setLocale, getLocale } from "@arcgis/core/intl";
+import HelloWorld from "./HelloWorld/HelloWorld";
+import { registerMessageBundleLoader, createJSONLoader, fetchMessageBundle, setLocale, getLocale } from "@arcgis/core/intl";
 import { autoUpdatedStrings } from "./ApplicationBase/support/t9nUtils/autoUpdateStringUtils";
-
 const CSS = {
     loading: "configurable-application--loading"
 };
@@ -34,6 +34,7 @@ export default class Main {
     //----------------------------------
     base: ApplicationBase = null;
     bundle = null;
+    bundleName = "ts-tutorial-app/assets/appNLS/t9n/common"
     //--------------------------------------------------------------------------
     //
     //  Public Methods
@@ -51,11 +52,8 @@ export default class Main {
 
         setPageLocale(base.locale);
         setPageDirection(base.direction);
-        // TODO add in mapping. Add support for locale from browser
-        // make sure it all works when built from dist 
+
         this.base = base;
-
-
         const { webMapItems } = base?.results;
 
         const validWebMapItems = webMapItems.map(response => {
@@ -75,14 +73,13 @@ export default class Main {
     async _handleT9N() {
 
         registerMessageBundleLoader(
-            createT9NLoader({
-                filter: "ts-tutorial-app/",
+            createJSONLoader({
+                pattern: "ts-tutorial-app/",
                 base: "ts-tutorial-app",
                 location: new URL("./", window.location.href)
             })
         );
-        this.bundle = await fetchMessageBundle("ts-tutorial-app/assets/appNLS/t9n/common");
-
+        this.bundle = await fetchMessageBundle(this.bundleName);
     }
     async _createMapFromId(item) {
         const { config } = this.base;
@@ -113,6 +110,13 @@ export default class Main {
             map
         });
 
+        const greetingsWidget = new HelloWorld({
+            firstName: "Jane",
+            lastName: "Doe",
+            container: document.createElement("div")
+        });
+
+        view.ui.add(greetingsWidget, "bottom-right");
         const legend = new Legend({
             view
         });
@@ -121,18 +125,16 @@ export default class Main {
             content: legend,
             expandTooltip: this.bundle.tools.expandLegendTip
         });
-        view.ui.add(expand, "top-right");
+        view.ui.add(expand, "top-left");
 
-        autoUpdatedStrings.add({ obj: expand, property: "expandTooltip", bundleName: "ts-tutorial-app/assets/appNLS/t9n/common", key: "tools.expandLegendTip" });
+        // Update expand tooltip when locale changes 
+        autoUpdatedStrings.add({ obj: expand, property: "expandTooltip", bundleName: this.bundleName, key: "tools.expandLegendTip" });
 
 
-        // TODO support switching locales, modifying themes 
-        // TODO look into module federation
-        // add config setting 
-        // TODO test this out then add to github and send to rene
         const b = document.createElement("button");
-        b.innerHTML = "Locale test - toggle french/english";
-        view.ui.add(b, "top-right")
+        b.classList.add("app-locale-button")
+        b.innerHTML = "Toggle Locale (French - English)";
+        view.ui.add(b, { position: "top-right", index: 0 })
         b.addEventListener("click", () => {
             getLocale() === "fr" ? setLocale("en") : setLocale("fr");
         });

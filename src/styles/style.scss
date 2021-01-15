@@ -9,3 +9,19 @@ body,
   height: 100%;
   width: 100%;
 }
+
+.app-locale-button {
+  padding: 1em;
+  margin: 1em;
+}
+
+.esri-hello-world {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+}
+
+.esri-hello-world--emphasis {
+  font-weight: bold;
+}

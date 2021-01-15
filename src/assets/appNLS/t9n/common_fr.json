@@ -1,8 +1,8 @@
 {
   "tools": {
-    "expandLegendTip": "fr_Expand legend_fr"
+    "expandLegendTip": "Développer la légende"
   },
   "errors": {
-    "loading": "fr_Hello_fr"
+    "loading": "Bonjour"
   }
 }
