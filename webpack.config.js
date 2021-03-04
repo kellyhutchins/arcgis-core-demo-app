@@ -28,28 +28,17 @@ module.exports = {
             }
         }),
         new CopyPlugin({
-            patterns: [
-                {
-                    from: "node_modules/@arcgis/core/assets",
-                    to: "assets"
-                }, {
-                    from: "./src/assets",
-                    to: "assets"
-                }, {
-                    from: "./src/HelloWorld/assets",
-                    to: "assets"
-                }
+            patterns: [{
+                from: "./src/assets",
+                to: "assets"
+            }, {
+                from: "./src/HelloWorld/assets",
+                to: "assets"
+            }
             ]
         }),
         new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
         new HtmlWebpackPlugin({
-            /* title: 'Config App Demo',
-             meta: {
-                 "viewport": "width=device-width,initial-scale=1,user-scaleable=yes",
-                 "mobile-web-app-capable": "yes",
-                 "apple-mobile-web-app-capable": "yes",
-                 "apple-mobile-web-app-status-bar-style": "default"
-             }*/
             chunksSortMode: "none",
             template: path.resolve(__dirname, "src", "index.html")
         }),
@@ -88,14 +77,7 @@ module.exports = {
                 use: [
                     'file-loader',
                 ],
-            },
-            // fonts 
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader',
-                ],
-            },
+            }
         ]
     },
 }
